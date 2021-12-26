@@ -1,5 +1,6 @@
 #include <iostream>
-
+#include "File.h"
+using namespace std;
 
 
 /*
@@ -22,7 +23,15 @@ void DeleteKey (char *cIndexFile, int iToken); // delete record containing value
 int FirstEmptyBlock(char *cIndexFile); // return the index of the first empty block.
 
  */
+// record at the start of the file :
+// iKey -> first non-empty block   // -1 if there is not
+// iVal -> first empty block  // same
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+File file(7,5);
+file.printFile();
+
+
+
+
 }

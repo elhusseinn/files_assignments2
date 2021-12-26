@@ -80,6 +80,24 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Elhussein/CLionProjects/files_assignment2/Block.cpp">
+			<Option target="files_assignment2"/>
+		</Unit>
+		<Unit filename="C:/Users/Elhussein/CLionProjects/files_assignment2/Block.h">
+			<Option target="files_assignment2"/>
+		</Unit>
+		<Unit filename="C:/Users/Elhussein/CLionProjects/files_assignment2/File.cpp">
+			<Option target="files_assignment2"/>
+		</Unit>
+		<Unit filename="C:/Users/Elhussein/CLionProjects/files_assignment2/File.h">
+			<Option target="files_assignment2"/>
+		</Unit>
+		<Unit filename="C:/Users/Elhussein/CLionProjects/files_assignment2/Record.cpp">
+			<Option target="files_assignment2"/>
+		</Unit>
+		<Unit filename="C:/Users/Elhussein/CLionProjects/files_assignment2/Record.h">
+			<Option target="files_assignment2"/>
+		</Unit>
 		<Unit filename="C:/Users/Elhussein/CLionProjects/files_assignment2/main.cpp">
 			<Option target="files_assignment2"/>
 		</Unit>

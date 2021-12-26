@@ -141,6 +141,87 @@ files_assignment2/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/build
 .PHONY : files_assignment2/fast
 
+Block.obj: Block.cpp.obj
+
+.PHONY : Block.obj
+
+# target to build an object file
+Block.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/Block.cpp.obj
+.PHONY : Block.cpp.obj
+
+Block.i: Block.cpp.i
+
+.PHONY : Block.i
+
+# target to preprocess a source file
+Block.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/Block.cpp.i
+.PHONY : Block.cpp.i
+
+Block.s: Block.cpp.s
+
+.PHONY : Block.s
+
+# target to generate assembly for a file
+Block.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/Block.cpp.s
+.PHONY : Block.cpp.s
+
+File.obj: File.cpp.obj
+
+.PHONY : File.obj
+
+# target to build an object file
+File.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/File.cpp.obj
+.PHONY : File.cpp.obj
+
+File.i: File.cpp.i
+
+.PHONY : File.i
+
+# target to preprocess a source file
+File.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/File.cpp.i
+.PHONY : File.cpp.i
+
+File.s: File.cpp.s
+
+.PHONY : File.s
+
+# target to generate assembly for a file
+File.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/File.cpp.s
+.PHONY : File.cpp.s
+
+Record.obj: Record.cpp.obj
+
+.PHONY : Record.obj
+
+# target to build an object file
+Record.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/Record.cpp.obj
+.PHONY : Record.cpp.obj
+
+Record.i: Record.cpp.i
+
+.PHONY : Record.i
+
+# target to preprocess a source file
+Record.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/Record.cpp.i
+.PHONY : Record.cpp.i
+
+Record.s: Record.cpp.s
+
+.PHONY : Record.s
+
+# target to generate assembly for a file
+Record.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\files_assignment2.dir\build.make CMakeFiles/files_assignment2.dir/Record.cpp.s
+.PHONY : Record.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -177,6 +258,15 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... files_assignment2
+	@echo ... Block.obj
+	@echo ... Block.i
+	@echo ... Block.s
+	@echo ... File.obj
+	@echo ... File.i
+	@echo ... File.s
+	@echo ... Record.obj
+	@echo ... Record.i
+	@echo ... Record.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

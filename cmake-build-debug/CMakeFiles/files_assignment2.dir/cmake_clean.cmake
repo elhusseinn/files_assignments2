@@ -1,4 +1,7 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/files_assignment2.dir/Block.cpp.obj"
+  "CMakeFiles/files_assignment2.dir/File.cpp.obj"
+  "CMakeFiles/files_assignment2.dir/Record.cpp.obj"
   "CMakeFiles/files_assignment2.dir/main.cpp.obj"
   "files_assignment2.exe"
   "files_assignment2.exe.manifest"
