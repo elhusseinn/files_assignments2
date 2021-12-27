@@ -25,10 +25,11 @@ void Block::blockInitializer(int n) {
     }
 }
 
-const Record &Block::getHeader() const {
+  Record &Block::getHeader() {
     return header;
 }
 
 const vector<Record> &Block::getRecords() const {
     return records;
 }
+

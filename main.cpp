@@ -28,7 +28,7 @@ int FirstEmptyBlock(char *cIndexFile); // return the index of the first empty bl
 // iVal -> first empty block  // same
 
 int main() {
-File file(7,5);
+File file(5,3);
 file.printFile();
 
 

@@ -1,16 +1,20 @@
 #include "File.h"
 
-File::File(int n, int m) {
+File::File(int n /*number of records in a block*/, int m/*number of blocks in file*/) {
 
-    initialBlock.blockInitializer(n);
+    initialBlock.blockInitializer(n); // initialize n records in vector to a block
     fileHeader.setIKey(-1);
     fileHeader.setIVal(1);
+
     Block* currentBlock = &initialBlock;
 
-    for (int i = 0; i < m-1; i++) {
+    int itr = 2;
+    for (int i = 0; i < m-1; i++) { //
         Block* b = new Block();
         b->blockInitializer(n);
         currentBlock->setNext(b);
+        currentBlock->getHeader().setIVal(itr);
+        itr++;
         currentBlock = currentBlock->getNext();
 
     }
