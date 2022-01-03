@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Elhussein/CLionProjects/files_assignment2/Block.h
+Record.h
+C:/Users/Elhussein/CLionProjects/files_assignment2/Record.h
+vector
+-
+bits/stdc++.h
+-
+iostream
+-
+
+C:/Users/Elhussein/CLionProjects/files_assignment2/File.h
+iostream
+-
+Record.h
+C:/Users/Elhussein/CLionProjects/files_assignment2/Record.h
+Block.h
+C:/Users/Elhussein/CLionProjects/files_assignment2/Block.h
+fstream
+-
+
+C:/Users/Elhussein/CLionProjects/files_assignment2/Record.h
+
+C:/Users/Elhussein/CLionProjects/files_assignment2/main.cpp
+iostream
+-
+File.h
+C:/Users/Elhussein/CLionProjects/files_assignment2/File.h
+fstream
+-
+
