@@ -25,3 +25,9 @@ Record::Record() {
     iVal = 0;
 }
 
+Record::Record(int iKey, int iVal) {
+    this->iKey = iKey;
+    this->iVal = iVal;
+
+}
+

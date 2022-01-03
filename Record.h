@@ -16,6 +16,9 @@ public:
 
     Record();
 
+    Record(int iKey,int iVal);
+
+
 
 };
 
