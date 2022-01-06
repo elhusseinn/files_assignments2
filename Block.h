@@ -68,6 +68,8 @@ public:
 
     void setIsEmpty(bool isEmpty);
 
+    void clearBlock();
+
 
 
 };

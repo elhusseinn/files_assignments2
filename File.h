@@ -11,11 +11,11 @@ class File {
 public:
      Record &getFileHeader();
 
-    void setInitialBlock(const Block &initialBlock);
+    void setInitialBlock( Block* initialBlock);
 
 private:
     // just 1
-    Block initialBlock;
+    Block* initialBlock;
     int numberOfBlocks;
 public:
     int getNumberOfBlocks() const;

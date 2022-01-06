@@ -101,8 +101,9 @@ void Block::fixBlock() {
             maxIVal = records[i].getIVal();               // fix iVal in the block
         }
     }
-
+if(maxIVal != 0){
     this->getHeader().setIVal(maxIVal);
+}
 
     Block *curBlock = this;
 
@@ -188,13 +189,15 @@ int counter = 0;
             counter++;
         }
     }
-    if(counter == records.size()){
+    if(counter == getN()){
         isEmpty = true;
     }
 
 
     fixBlock();
 }
+
+
 
 bool Block::isEmpty1() const {
     return isEmpty;
@@ -210,6 +213,13 @@ int Block::getNoOfRecordsFull() const {
 
 void Block::setNoOfRecordsFull(int noOfRecordsFull) {
     Block::noOfRecordsFull = noOfRecordsFull;
+}
+
+void Block::clearBlock() {
+    for (int i = 0; i < this->getN(); ++i) {
+        deleteRecord(records[i].getIKey());
+    }
+
 }
 
 

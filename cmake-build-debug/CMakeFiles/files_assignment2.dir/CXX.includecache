@@ -16,10 +16,6 @@ bits/stdc++.h
 iostream
 -
 
-C:/Users/Elhussein/CLionProjects/files_assignment2/File.cpp
-File.h
-C:/Users/Elhussein/CLionProjects/files_assignment2/File.h
-
 C:/Users/Elhussein/CLionProjects/files_assignment2/File.h
 iostream
 -
@@ -31,4 +27,12 @@ fstream
 -
 
 C:/Users/Elhussein/CLionProjects/files_assignment2/Record.h
+
+C:/Users/Elhussein/CLionProjects/files_assignment2/main.cpp
+iostream
+-
+File.h
+C:/Users/Elhussein/CLionProjects/files_assignment2/File.h
+fstream
+-
 

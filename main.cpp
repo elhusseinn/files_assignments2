@@ -123,7 +123,7 @@ File readFromFile(fstream &cIndexFile, string fileName, int m, int n) {
 cIndexFile.close();
     return file;
 
-} // working hehe 'CAP'
+} // working hehe
 
 int main(){
     fstream f;
@@ -135,7 +135,8 @@ int main(){
 
 cout<<"------------------------------------------------------------------"<<endl;
 
-file.insertRecord(4,3,f);
+file.insertRecord(11,12,f);
+
 
 file.printFile();
 
@@ -147,7 +148,18 @@ file.printFile();
 }
 
 int main_(){
-    CreateRecordFile("test.txt", 3, 5);
+     CreateRecordFile("test.txt", 3, 5);
+//    fstream f;
+//    File file(3, 5);
+//    file = readFromFile(f, "test.txt", 3, 5);
+//
+//
+//    file.printFile();
+//
+//    cout<<"------------------------------------------------------------------"<<endl;
+//
+//    cout<<file.getInitialBlock()->getNext()->isEmpty1();
+//    cout<<file.getFileHeader().getIVal();
 
 
 
