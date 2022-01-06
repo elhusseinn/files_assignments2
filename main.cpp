@@ -3,10 +3,6 @@
 #include <fstream>
 using namespace std;
 
-
-
-
-
 /*
 // for all the prototypes the Records set is stored in a file called cIndexFile
 
@@ -41,22 +37,6 @@ int FirstEmptyBlock(char *cIndexFile); // return the index of the first empty bl
 bool CreateRecordFile(string cIndexFile, int m, int n){ // returns true if success and false if failure. m is the number of blocks in the file and n is the number of records in a block
 
     File file(m,n);
-
-    file.getInitialBlock()->insertRecord(1,5);
-    file.getInitialBlock()->insertRecord(4,3);
-    file.getInitialBlock()->insertRecord(3,6);
-
-
-    file.getInitialBlock()->getNext()->insertRecord(5,5);
-    file.getInitialBlock()->getNext()->insertRecord(7,3);
-    file.getInitialBlock()->getNext()->insertRecord(6,19);
-    file.getInitialBlock()->getNext()->insertRecord(8,8);
-
-    file.getInitialBlock()->getNext()->getNext()->insertRecord(9,58);
-    file.getInitialBlock()->getNext()->getNext()->insertRecord(11,36);
-    file.getInitialBlock()->getNext()->getNext()->insertRecord(10,55);
-    file.printFile();
-
     fstream outputFile;
     file.writeInFile(outputFile, cIndexFile);
 
@@ -64,48 +44,112 @@ bool CreateRecordFile(string cIndexFile, int m, int n){ // returns true if succe
 
 }
 
-/*void readFromFile(fstream &cIndexFile, string fileName, int m, int n) {
+File readFromFile(fstream &cIndexFile, string fileName, int m, int n) {
+    vector<int> nums;
     File file(m, n);
     cIndexFile.open(fileName, ios::in);
 
-}*/
+        if (!cIndexFile){
+            cout << "File not created!";
+            exit(0);
+        }
+        else
+        {
+            int number;
+            char ch;
+            string out = "";
 
-int main() {
+            while (true) {
+                cIndexFile >> ch;
+                if (cIndexFile.eof()){
+                    break;
+                }
+                if(ch != ',' && ch != '?' && ch != '|'){
+                    out+=ch;
+                }
+                else{
+                    if(out != "") {
+                        stringstream geek(out);
+                        geek>>number;
+                        nums.push_back(number);
+                        out = "";
+                    }
+                }
+
+            }
+
+        }
+    for (int i = 0; i < nums.size(); ++i) {
+        cout<< nums[i]<<',';
+    }
+    cout<<endl;
+
+        /////////////////////////////////////////////////////
+
+        file.getFileHeader().setIKey(nums[0]);             // set file Header
+        nums.erase(nums.begin());
+        file.getFileHeader().setIVal(nums[0]);
+        nums.erase(nums.begin());
+        Block* curBlock = file.getInitialBlock();
+        Record r;
+
+        for(int i =0; i < m; i++){
+            r.setIKey(nums[0]);
+            nums.erase(nums.begin());
+
+            r.setIVal(nums[0]);
+            nums.erase(nums.begin());                        // set block's header
+
+            curBlock->getHeader().setIKey(r.getIKey());
+            curBlock->getHeader().setIVal(r.getIVal());
+            for (int j = 0; j < n-1; ++j) {
+
+                r.setIKey(nums[0]);
+                nums.erase(nums.begin());
+
+                r.setIVal(nums[0]);
+                nums.erase(nums.begin());
+                if (r.getIKey() != 0 && r.getIVal()!= 0) {
+                    curBlock->insertRecord(r.getIKey(), r.getIVal());         // put records in block
+                }
+
+            }
+            if(curBlock->getNext() != nullptr) {                    // itterates through blocks
+                curBlock = curBlock->getNext();
+            }
+
+        }
+
+cIndexFile.close();
+    return file;
+
+} // working hehe 'CAP'
+
+int main(){
     fstream f;
+    File file(3, 5);
+    file = readFromFile(f, "test.txt", 3, 5);
 
 
-File file(3,5);
-file.printFile();
+    file.printFile();
 
 cout<<"------------------------------------------------------------------"<<endl;
-    cout<<file.FirstEmptyBlock();
-file.getInitialBlock()->insertRecord(1,5);
-file.getInitialBlock()->insertRecord(4,3);
-file.getInitialBlock()->insertRecord(3,6);
 
-
-    file.getInitialBlock()->getNext()->insertRecord(5,5);
-    file.getInitialBlock()->getNext()->insertRecord(7,3);
-    file.getInitialBlock()->getNext()->insertRecord(6,19);
-    file.getInitialBlock()->getNext()->insertRecord(8,8);
-
-       file.getInitialBlock()->getNext()->getNext()->insertRecord(9,58);
-        file.getInitialBlock()->getNext()->getNext()->insertRecord(11,36);
-        file.getInitialBlock()->getNext()->getNext()->insertRecord(10,55);
-
-
-
+file.insertRecord(4,3,f);
 
 file.printFile();
-    cout<<"------------------------------------------------------------------"<<endl;
 
 
-cout<<file.FirstEmptyBlock();
-    file.getInitialBlock()->getNext()->deleteRecord(6);
-    file.getInitialBlock()->getNext()->deleteRecord(5);
-    file.getInitialBlock()->getNext()->deleteRecord(7);
-    file.getInitialBlock()->getNext()->deleteRecord(8);
-    file.printFile();
-    cout<<"------------------------------------------------------------------"<<endl;
-    //CreateRecordFile("test.txt", 3, 5);*/
+
+
+
+
 }
+
+int main_(){
+    CreateRecordFile("test.txt", 3, 5);
+
+
+
+}
+

@@ -111,31 +111,43 @@ cIndexFile.close();
 
 }
 
-int File::insertRecord(int iKey, int iVal) {
+int File::insertRecord(int iKey, int iVal, fstream &indexFile) {
 
-    Block* curBlock = &initialBlock;
+    Block *curBlock = &initialBlock;
     int numFirstEmptyBlock = fileHeader.getIVal();
-    if (numFirstEmptyBlock == -1){
-        cout<< "failed"<<endl;
-        return -1;
+
+    Block *lastBlock = &initialBlock;
+    while (lastBlock->getNext() != nullptr) {
+        lastBlock = lastBlock->getNext();
     }
+
+
+    if (numFirstEmptyBlock == -1 && lastBlock->getNoOfRecordsFull() == lastBlock->getN()) { // when there is no empty block
+        cout << "failed" << endl;
+        return -1;
+    } else if (numFirstEmptyBlock == -1 && lastBlock->getNoOfRecordsFull() < lastBlock->getN()) {
+        lastBlock->insertRecord(iKey, iVal);
+        fixUnderFlow(lastBlock);
+    } else {
 
     for (int i = 1; i < numFirstEmptyBlock; ++i) { // gets the first empty block
         curBlock = curBlock->getNext();
     }
-    if (curBlock->getPrevious() != nullptr) { curBlock = curBlock->getPrevious(); } // gets the block before the empty block because it still might have space to take other records
+    if (curBlock->getPrevious() != nullptr) { // gets the block before the empty block because it still might have space to take other records
+        curBlock = curBlock->getPrevious();
+    }
 
-    if(curBlock->insertRecord(iKey, iVal)) {
-
+    if (curBlock->insertRecord(iKey, iVal)) {
         fixUnderFlow(curBlock);
 
-    } else{
+    } else {
         curBlock = curBlock->getNext();
         curBlock->insertRecord(iKey, iVal);
         fixUnderFlow(curBlock);
     }
-
-
+}
+    fixFile();
+this->writeInFile(indexFile, "test.txt");
 }
 
 void File::fixUnderFlow(Block* curBlock) {
@@ -144,7 +156,7 @@ void File::fixUnderFlow(Block* curBlock) {
 
 
             Record temp;
-            int numberOfBlocksTakenFromPrevRecord = (curBlock->getNoOfRecordsFull()) - (curBlock->getN() /2); // need to take numberOfBlocksTakenFromPrevRecord from previous record to fix underFlow
+            int numberOfBlocksTakenFromPrevRecord = (curBlock->getNoOfRecordsFull()) - (curBlock->getN() /2); // need to take -numberOfBlocksTakenFromPrevRecord- from previous record to fix underFlow
 
             for (int i =1; i <= numberOfBlocksTakenFromPrevRecord;i++) { // move records from previous block to current block
                 temp = curBlock->getPrevious()->getRecords()[curBlock->getPrevious()->getRecords().size()-i];
@@ -171,18 +183,71 @@ void File::fixUnderFlow(Block* curBlock) {
          * fix header file GG
          *
          * */
+        curBlock = &initialBlock;
+        for (int i = 0; i < this->getNumberOfBlocks(); ++i) { // loops through all the blocks in the file
+            for (int j = 0; j < curBlock->getNoOfRecordsFull(); ++j) { // (overrides the records with the sorted ones)
+                curBlock->getRecords()[j].setIKey(records[0].getIKey());
+                curBlock->getRecords()[j].setIVal(records[0].getIVal());
+                records.erase(records.begin());
+            }
+            if(curBlock->getNext() != nullptr) {
+                curBlock = curBlock->getNext();
+            }
+
+        }
+
 
 
 
     }
-
-
 
 }
 
 bool File::compareInterval(Record r1, Record r2) {
     return (r1.getIKey() < r2.getIKey());
 }
+
+ Record &File::getFileHeader(){
+    return fileHeader;
+}
+
+void File::setInitialBlock(const Block &initialBlock) {
+    File::initialBlock = initialBlock;
+}
+
+
+void File::fixFile() {
+    Block* curBlock = &initialBlock;
+
+    while (curBlock->getNext() != nullptr){ // fixes iKey (first non empty block)
+        if(!curBlock->isEmpty1()){
+            this->getFileHeader().setIKey(curBlock->getBlockNumber());
+            break;
+        }
+
+        curBlock = curBlock->getNext();
+    }
+
+    curBlock = &initialBlock;
+
+
+    while(curBlock->getNext() != nullptr){ // fixes iVal (first empty block)
+
+        if(curBlock->isEmpty1()){
+            this->getFileHeader().setIVal(curBlock->getBlockNumber());
+            break;
+        }
+
+
+    if(curBlock->getNext() != nullptr) {
+        curBlock = curBlock->getNext();
+    }
+
+    }
+
+
+}
+
 
 
 

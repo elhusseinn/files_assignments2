@@ -7,7 +7,14 @@
 #include <fstream>
 
 class File {
-    Record fileHeader; // just 1
+    Record fileHeader;
+public:
+     Record &getFileHeader();
+
+    void setInitialBlock(const Block &initialBlock);
+
+private:
+    // just 1
     Block initialBlock;
     int numberOfBlocks;
 public:
@@ -31,11 +38,13 @@ public:
 
     void writeInFile(fstream &cIndexFile, string fileName);
 
-    int insertRecord(int iKey, int iVal);
+    int insertRecord(int iKey, int iVal, fstream &indexFile);
 
     void fixUnderFlow(Block* curBlock);
 
     static bool compareInterval(Record r1, Record r2);
+
+    void fixFile();
 
 
 };

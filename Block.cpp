@@ -33,7 +33,7 @@ void Block::blockInitializer() {
     return header;
 }
 
-const vector<Record> &Block::getRecords() const {
+   vector<Record> &Block::getRecords(){
     return records;
 }
 
@@ -59,7 +59,7 @@ bool Block::insertRecord(int iKey, int iVal) {
     for (int i = 0; i < newRecords.size(); ++i) { // pushing the values into records vector
         records.push_back(newRecords[i]);
     }
-    noOfRecordsFull = records.size();
+    noOfRecordsFull ++;
 
     sort(records.begin(), records.end(), compareInterval); // sort the records on iKey
 

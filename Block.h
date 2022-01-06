@@ -42,9 +42,9 @@ public:
 
     void setN(int n);
 
-    const vector<Record> &getRecords() const;
+     vector<Record> &getRecords();
 
-    Record &getHeader() ;
+    Record &getHeader();
 
     Block *getNext() const;
 
