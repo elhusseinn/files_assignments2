@@ -304,15 +304,28 @@ int File::GetRecordIndex(int IToken) {
         }
         return curBlock->getRecordIndex(IToken);
 
-
-
     }
     else{
         return -1;
     }
 
+}
 
+void File::DeleteKey(int IToken, fstream &indexFile) {
+    int blockIndex = GetBlockIndex(IToken);
 
+    if(blockIndex != -1){
+
+        Block* curBlock = initialBlock;
+
+        for(int i = 1; i < blockIndex; i++){ // gets the block containing the record to be deleted
+            curBlock = curBlock->getNext();
+        }
+        curBlock->deleteRecord(IToken);
+
+    }
+    fixFile();
+    this->writeInFile(indexFile, "test.txt");
 
 }
 

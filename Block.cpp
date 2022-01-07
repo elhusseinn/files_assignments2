@@ -183,13 +183,35 @@ void Block::deleteRecord(int iKey) {
     records[index].setIKey(0);
     records[index].setIVal(0);
     noOfRecordsFull--;
+
+    vector<Record> newRecords;
+    for (int i = 0; i < records.size(); ++i) { // copies the legit values into a new vector
+        if(records[i].getIKey() > 0){
+            newRecords.push_back(records[i]);
+        }
+    }
+    records.clear(); // clears the records vector
+
+    for (int i = 0; i < newRecords.size(); ++i) { // pushing the values into records vector
+        records.push_back(newRecords[i]);
+    }
+    sort(records.begin(), records.end(), compareInterval); // sort the records on iKey
+
+    for (int i = records.size(); i < (this->n)-1; i++) { // pushing zero's into the remaining spots
+        Record r;
+        records.push_back(r);
+    }
+
+
+
+
 int counter = 0;
     for (int i = 0; i < records.size(); ++i) {
         if(records[i].getIKey() == 0 && records[i].getIVal() == 0){
             counter++;
         }
     }
-    if(counter == getN()){
+    if(counter == getN() -1){
         isEmpty = true;
     }
 
@@ -215,7 +237,7 @@ void Block::setNoOfRecordsFull(int noOfRecordsFull) {
 
 void Block::clearBlock() {
     for (int i = 0; i < this->getN(); ++i) {
-        deleteRecord(records[i].getIKey());
+        deleteRecord(records[0].getIKey());
     }
 
 }

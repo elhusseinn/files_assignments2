@@ -50,7 +50,7 @@ public:
 
     int GetRecordIndex(int IToken); // get index of record inside the block containing iKey = iToken and -1 if record does not exist
 
-
+    void DeleteKey (int iToken, fstream &indexFile); // delete record containing value iKey = iToken
 
 
 };

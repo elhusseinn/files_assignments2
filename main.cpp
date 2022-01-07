@@ -136,24 +136,16 @@ int main(){
 cout<<"------------------------------------------------------------------"<<endl;
 
 
-cout<<file.GetBlockIndex(15)<<endl;
-cout<<file.GetRecordIndex(15);
-
-
-//file.printFile();
 
 
 
 
 
-
-}
-
-int main_(){
-     CreateRecordFile("test.txt", 3, 5);
-
+file.printFile();
 
 
 
 }
+
+
 
