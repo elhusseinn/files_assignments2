@@ -48,7 +48,7 @@ Block* File::getInitialBlock(){
     return curBlock;
 }
 
-int File::GetKey(char *cIndexFile, int iBlock, int iRecord) {
+int File::GetKey(int iBlock, int iRecord) {
     // get value iKey stored in a given block
     // iBlock and given record iRecord – returns -1 if record on block is empty
 Block* curBlock = initialBlock;
@@ -60,7 +60,7 @@ Block* curBlock = initialBlock;
 
 }
 
-int File::GetVal(char *cIndexFile,int iBlock, int iRecord) {
+int File::GetVal(int iBlock, int iRecord) {
     // get value iKey stored in a given block
     // iBlock and given record iRecord – returns -1 if record on block is empty
     Block *curBlock = initialBlock;
@@ -71,7 +71,7 @@ int File::GetVal(char *cIndexFile,int iBlock, int iRecord) {
 
 }
 
-int File::FirstEmptyBlock(/*char *cIndexFile*/) {
+int File::FirstEmptyBlock() {
     Block *curBlock = initialBlock;
     for (int i = 0; i < this->getNumberOfBlocks(); i++){
         if (curBlock->isEmpty1()) {
@@ -168,45 +168,7 @@ void File::fixUnderFlow(Block* curBlock) {
                 curBlock->getPrevious()->deleteRecord(temp.getIKey());                //check  err
             }
 
-        curBlock = initialBlock;
-        vector <Record> records;
-
-        for (int i = 0; i < this->getNumberOfBlocks(); ++i) { // loops through all the blocks in the file
-            for (int j = 0; j < curBlock->getNoOfRecordsFull(); ++j) { // (saves all the records of every block in a ArrayList)
-                records.push_back(curBlock->getRecords()[j]);
-            }
-            if(curBlock->getNext() != nullptr) {
-                curBlock = curBlock->getNext();
-            }
-
-        }
-        sort(records.begin(), records.end(), compareInterval); // sort the records on iKey
-
-        /*
-         * override kol l records bl records al mawgoda fl vector u created
-         * fix header file GG
-         *
-         * */
-        curBlock = initialBlock;
-        for (int i = 0; i < this->getNumberOfBlocks(); ++i) { // loops through all the blocks in the file
-            int temp = curBlock->getNoOfRecordsFull();
-            curBlock->clearBlock();
-            for (int j = 0; j < temp; ++j) { // (overrides the records with the sorted ones with insert function)
-
-                curBlock->insertRecord(records[0].getIKey(), records[0].getIVal());
-                records.erase(records.begin());
-            }
-            if(curBlock->getNext() != nullptr) {
-                curBlock = curBlock->getNext();
-            }
-
-        }
-
-
-
-
     }
-
 
 }
 
@@ -222,9 +184,39 @@ void File::setInitialBlock( Block* initialBlock) {
     File::initialBlock = initialBlock;
 }
 
-
 void File::fixFile() {
-    Block* curBlock = initialBlock;
+
+   Block* curBlock = initialBlock;
+    vector <Record> records;
+
+    for (int i = 0; i < this->getNumberOfBlocks(); ++i) { // loops through all the blocks in the file
+        for (int j = 0; j < curBlock->getNoOfRecordsFull(); ++j) { // (saves all the records of every block in a ArrayList)
+            records.push_back(curBlock->getRecords()[j]);
+        }
+        if(curBlock->getNext() != nullptr) {
+            curBlock = curBlock->getNext();
+        }
+
+    }
+    sort(records.begin(), records.end(), compareInterval); // sort the records on iKey
+
+    curBlock = initialBlock;
+    for (int i = 0; i < this->getNumberOfBlocks(); ++i) { // loops through all the blocks in the file
+        int temp = curBlock->getNoOfRecordsFull();
+        curBlock->clearBlock();
+        for (int j = 0; j < temp; ++j) { // (overrides the records with the sorted ones with insert function)
+
+            curBlock->insertRecord(records[0].getIKey(), records[0].getIVal());
+            records.erase(records.begin());
+        }
+        if(curBlock->getNext() != nullptr) {
+            curBlock = curBlock->getNext();
+        }
+
+    }
+
+
+     curBlock = initialBlock;
     int firstNonEmptyBlock = -1;
     int firstEmptyBlock = -1;
 
@@ -260,6 +252,64 @@ void File::fixFile() {
 fileHeader.setIKey(firstNonEmptyBlock);
 fileHeader.setIVal(firstEmptyBlock);
 
+
+
+
+
+}
+
+int File::GetBlockIndex(int IToken) {  // get index of block containing iKey = iToken and -1 if record does not exist
+
+    int blockIndex = -1;
+    Block* curBlock = initialBlock;
+
+    while(curBlock != nullptr) {
+
+        if (curBlock->getHeader().getIVal() >= IToken) {
+            for (int i = 0; i < curBlock->getN(); ++i) {
+
+                if (curBlock->getRecords()[i].getIKey() == IToken) {
+                    blockIndex = curBlock->getBlockNumber();
+                    return blockIndex;
+                }
+
+            }
+
+
+        } else {
+        if (curBlock->getNext() != nullptr) {
+            curBlock = curBlock->getNext();
+        }
+        else{
+            return blockIndex;
+        }
+    }
+    }
+
+
+
+    return blockIndex;
+}
+
+int File::GetRecordIndex(int IToken) {
+
+    int blockNumber = GetBlockIndex(IToken);
+
+    if(blockNumber != -1){
+
+        Block* curBlock = initialBlock;
+
+        for(int i = 1; i < blockNumber; i++){
+            curBlock = curBlock->getNext();
+        }
+        return curBlock->getRecordIndex(IToken);
+
+
+
+    }
+    else{
+        return -1;
+    }
 
 
 

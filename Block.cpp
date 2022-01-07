@@ -93,16 +93,16 @@ bool Block::compareInterval(Record i1, Record i2) {
 }
 
 void Block::fixBlock() {
-    int maxIVal = 0;
+    int maxIKey = 0;
 
     for (int i = 0; i < records.size(); i++) {
 
-        if (records[i].getIVal() >= maxIVal) {
-            maxIVal = records[i].getIVal();               // fix iVal in the block
+        if (records[i].getIKey() >= maxIKey) {
+            maxIKey = records[i].getIKey();               // fix iVal in the block
         }
     }
-if(maxIVal != 0){
-    this->getHeader().setIVal(maxIVal);
+if(maxIKey != 0){
+    this->getHeader().setIVal(maxIKey);
 }
 
     Block *curBlock = this;
@@ -196,8 +196,6 @@ int counter = 0;
 
     fixBlock();
 }
-
-
 
 bool Block::isEmpty1() const {
     return isEmpty;

@@ -28,13 +28,13 @@ public:
     void printFile();
 
     Block* getInitialBlock();
-    int GetKey(char *cIndexFile, int iBlock, int iRecord); // get value iKey stored in a given block
+    int GetKey(int iBlock, int iRecord); // get value iKey stored in a given block
    // iBlock and given record iRecord – returns -1 if record on block is empty
 
-    int GetVal(char *cIndexFile, int iBlock, int iRecord); // get value iVal stored in a given block
+    int GetVal(int iBlock, int iRecord); // get value iVal stored in a given block
     //iBlock and given record iRecord – returns -1 if record on block is empty
 
-    int FirstEmptyBlock(/*char *cIndexFile*/); // return the index of the first empty block.
+    int FirstEmptyBlock(); // return the index of the first empty block.
 
     void writeInFile(fstream &cIndexFile, string fileName);
 
@@ -45,6 +45,12 @@ public:
     static bool compareInterval(Record r1, Record r2);
 
     void fixFile();
+
+    int GetBlockIndex(int IToken);   // get index of block containing iKey = iToken and -1 if record does not exist
+
+    int GetRecordIndex(int IToken); // get index of record inside the block containing iKey = iToken and -1 if record does not exist
+
+
 
 
 };
